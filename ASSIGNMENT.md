@@ -150,10 +150,14 @@ Both write `python/name.py` and `python/name.png`. Open the `.png` with any imag
 
 - **blue lines** are drawn with the pen down;
 - **pink lines** show where the pen travelled while it was up. The pen starts from the plotter's home corner
-  (top left), goes to the page centre where your program begins, and returns home at the end, so there are
-  always a few pink lines to and from the corner.
+  (top left), goes to the centre of the paper where your program begins, and returns home at the end, so there
+  are always a few pink lines to and from the corner;
+- the **grey dashed box** is the safe area (below), and anything **red** went outside it.
 
-The page is about 430 mm wide and 297 mm tall. Your program starts at its centre.
+The paper is 17 × 11 inches (about 432 × 279 mm). Your program starts at its centre, and must stay inside
+the **safe area**: at least 1 inch from the paper's edges, which means within **190.5 mm left/right and
+114.3 mm up/down** of the start. If a drawing leaves the safe area, the preview still works (with a warning, and the
+offending moves in red), but the real plotter refuses to draw it.
 
 > **Tests check correctness. Previews let you *see* your drawing. The real plotter is a separate, optional step
 > (see the [appendix](#appendix-the-real-plotter)).** Automated tests never need Python or the plotter.
@@ -270,7 +274,7 @@ GHCI prints an environment as `fromList [...]`: a list of (name, value) pairs, e
 > [mock_nextdraw] Saved preview to …/python/dot.png
 > Preview: python/dot.png
 > ```
-> **Drawing check:** open `python/dot.png`. You should see a single blue dot at the centre of the page, plus pink
+> **Drawing check:** open `python/dot.png`. You should see a single blue dot at the centre of the paper, plus pink
 > pen-up travel lines to and from the top-left corner. You can also open `python/dot.py` to see the complete
 > Python program your code became.
 >
@@ -1037,8 +1041,8 @@ Read it in `Examples.hs`. It's a real program in your language.
 
 ### Step 7.3: your own drawing
 Write your own program as abstract syntax. Add a definition to `Examples.hs` (for example `myDrawing :: Program`),
-`:reload`, and use `previewProgram "mine" myDrawing`. Keep it within about 200 mm left/right and 140 mm up/down
-of the start.
+`:reload`, and use `previewProgram "mine" myDrawing`. Keep it inside the safe area (within 190.5 mm left/right and
+114.3 mm up/down of the start): the preview shows anything outside it in red.
 
 ### The final check
 > **✅ Check your work (everything)**
@@ -1088,9 +1092,10 @@ Drawing on the real NextDraw plotter happens **in the lab, with your instructor'
 the course procedure. The basics:
 
 - **Preview first.** Never send a drawing to the plotter that you haven't previewed and checked.
-- Make sure it fits the paper: keep drawings within about 200 mm left/right and 140 mm up/down of the start.
+- Make sure it fits: the plotter refuses any drawing that leaves the safe area (190.5 mm left/right and 114.3 mm
+  up/down of the start), so check the preview for red first.
 - Before plotting, the carriage must be at its **home position** (the top-left corner), because the plotter treats
-  its position when it connects as home. The program moves to the page centre by itself.
+  its position when it connects as home. The program moves to the centre of the paper by itself.
 - The plotter computer has its own Python environment with the NextDraw software. There, a generated program runs
   with `--doplot`:
   ```
